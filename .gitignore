@@ -1,0 +1,22 @@
+# Nextflow
+work/
+.nextflow/
+.nextflow*
+*.log
+
+# Results
+results/
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Conda
+.env
+.conda
+
+# Python
+__pycache__/
+*.pyc
