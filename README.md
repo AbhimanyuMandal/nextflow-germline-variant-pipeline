@@ -5,16 +5,17 @@
 <h1 align="center">Nextflow DSL2 Germline Variant Calling Pipeline</h1>
 
 <p align="center">
-A modular, reproducible Germline Variant Calling Pipeline built using Nextflow DSL2 for processing next-generation sequencing (NGS) data.
+A production-style modular Nextflow DSL2 workflow implementing the GATK Best Practices pipeline for germline variant discovery from FASTQ to functionally annotated variants.
 </p>
 
 <p align="center">
 
 <img src="https://img.shields.io/badge/Nextflow-DSL2-23aa62?logo=nextflow"/>
-<img src="[https://img.shields.io/badge/GATK-4.6-blue"/>
+<img src="https://img.shields.io/badge/GATK-4.6-blue"/>
 <img src="https://img.shields.io/badge/SAMtools-1.22-orange"/>
 <img src="https://img.shields.io/badge/VEP-Ensembl-red"/>
 <img src="https://img.shields.io/badge/License-MIT-green"/>
+<img src="https://img.shields.io/badge/Linux-Compatible-black?logo=linux"/>
 </p>
 
 ---
@@ -35,7 +36,7 @@ It includes:
 
 ---
 
-## Workflow Overview
+## Workflow Diagram
 
 The pipeline implements a modular Nextflow DSL2 workflow for germline variant discovery following GATK Best Practices.
 
@@ -60,6 +61,18 @@ The pipeline implements a modular Nextflow DSL2 workflow for germline variant di
 
 ---
 
+## Technology Stack
+
+- Nextflow DSL2
+- Bash
+- Linux
+- BWA-MEM
+- SAMtools
+- GATK 4
+- Ensembl VEP
+
+---
+
 ## Pipeline Execution
 
 The workflow is executed using Nextflow DSL2. Each module runs independently, enabling scalable, reproducible, and resumable execution.
@@ -70,43 +83,6 @@ The workflow is executed using Nextflow DSL2. Each module runs independently, en
 
 ---
 
-## Output Directory
-
-The pipeline automatically organizes results into separate directories for alignment, quality control, variant calling, and annotation.
-
-<p align="center">
-  <img src="assets/output_directory.png" width="450">
-</p>
-
----
-
-## Repository Structure
-
-```text
-nextflow-germline-variant-pipeline/
-
-├── modules/
-│   ├── alignment/
-│   ├── gatk/
-│   ├── qc/
-│   └── annotation/
-│
-├── reference/
-│
-├── test_data/
-│
-├── results/
-│
-├── main.nf
-├── nextflow.config
-├── README.md
-└── LICENSE
-```
-
----
-
-
-
 ## Installation
 
 ### Clone the repository
@@ -116,16 +92,7 @@ git clone https://github.com/AbhimanyuMandal/nextflow-germline-variant-pipeline.
 
 cd nextflow-germline-variant-pipeline
 ```
-
-### Create environment
-
-```bash
-conda env create -f environment.yml
-
-conda activate germline-pipeline
-```
-
-## Requirements
+### Requirements
 
 - Nextflow ≥ 24.x
 - Java 17+
@@ -176,30 +143,37 @@ The reference genome must already be indexed before running the workflow.
 
 ---
 
-## Output
+## Generated Results
 
-After successful execution, the following directory structure is generated.
+The pipeline automatically organizes results into separate directories for alignment, quality control, variant calling, and annotation.
+
+<p align="center">
+  <img src="assets/output_directory.png" width="450">
+</p>
+
+---
+
+## Repository Structure
 
 ```text
-results/
+nextflow-germline-variant-pipeline/
 
-├── alignment/
-│   ├── sample.sam
-│   ├── sample.sorted.bam
-│   ├── sample.sorted.bam.bai
-│   ├── sample.rg.bam
-│   ├── sample.rg.bam.bai
-│   ├── sample.dedup.bam
-│   └── sample.dedup.bam.bai
+├── modules/
+│   ├── alignment/
+│   ├── gatk/
+│   ├── qc/
+│   └── annotation/
 │
-├── variants/
-│   ├── sample.g.vcf.gz
-│   ├── sample.g.vcf.gz.tbi
-│   ├── sample.filtered.vcf.gz
-│   └── sample.annotated.vcf
+├── reference/
 │
-└── readcount/
-    └── sample.readcount.txt
+├── test_data/
+│
+├── results/
+│
+├── main.nf
+├── nextflow.config
+├── README.md
+└── LICENSE
 ```
 
 ---
