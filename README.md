@@ -36,6 +36,14 @@ It includes:
 
 ---
 
+## Motivation
+
+The objective of this project is to demonstrate how a complex bioinformatics workflow can be transformed into a modular, reproducible, and maintainable Nextflow DSL2 pipeline following GATK Best Practices.
+
+The workflow emphasizes software engineering principles such as modularity, reproducibility, scalability, and code organization while performing end-to-end germline variant discovery.
+
+---
+
 ## Workflow Diagram
 
 The pipeline implements a modular Nextflow DSL2 workflow for germline variant discovery following GATK Best Practices.
@@ -61,6 +69,19 @@ The pipeline implements a modular Nextflow DSL2 workflow for germline variant di
 
 ---
 
+## Workflow Highlights
+
+- Modular DSL2 architecture
+- GATK Best Practices
+- Automatic BAM indexing
+- Duplicate marking
+- Functional annotation using Ensembl VEP
+- Organized output directories
+- Resume support with `-resume`
+- Easily extensible
+
+---
+
 ## Technology Stack
 
 - Nextflow DSL2
@@ -75,7 +96,11 @@ The pipeline implements a modular Nextflow DSL2 workflow for germline variant di
 
 ## Pipeline Execution
 
-The workflow is executed using Nextflow DSL2. Each module runs independently, enabling scalable, reproducible, and resumable execution.
+The workflow is executed using Nextflow DSL2. 
+
+Each module runs independently, enabling scalable, reproducible, and resumable execution.
+
+The screenshot below demonstrates successful execution of the complete workflow.
 
 <p align="center">
   <img src="assets/pipeline_execution.png" width="900">
@@ -195,15 +220,36 @@ nextflow-germline-variant-pipeline/
 
 ## Future Improvements
 
-- Integrate FastQC and MultiQC
+### Quality Control
+- FastQC
+- MultiQC
+
+### GATK Enhancements
 - Base Quality Score Recalibration (BQSR)
-- Joint Genotyping workflow
-- Container support using Docker and Singularity
-- Cloud execution on AWS and Google Cloud
-- Support for multiple samples
-- Workflow testing using GitHub Actions
+- Joint Genotyping
+
+### Workflow Improvements
+- Multiple sample support
 - Parameter validation
-- nf-core compatible configuration
+- Containerization (Docker & Singularity)
+
+### Reproducibility
+- GitHub Actions
+- nf-core compatibility
+
+---
+
+## Skills Demonstrated
+
+- Nextflow DSL2
+- Workflow Design
+- Bash Scripting
+- Linux
+- Bioinformatics
+- GATK Best Practices
+- NGS Data Processing
+- Modular Pipeline Development
+- Documentation
 
 ---
 
