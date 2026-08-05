@@ -1,5 +1,0 @@
-@HD	VN:1.5	SO:unsorted	GO:query
-@SQ	SN:chrToy	LN:99
-@PG	ID:bwa	PN:bwa	VN:0.7.19-r1273	CL:bwa mem reference/toy_reference.fa test_data/sample.fastq
-Read1	4	*	0	0	*	*	0	0	ATGCGTACGTAGCTAGCTAG	IIIIIIIIIIIIIIIIIIII	AS:i:0	XS:i:0
-Read2	4	*	0	0	*	*	0	0	CGATCGATCGATCGTAGCTA	IIIIIIIIIIIIIIIIIIII	AS:i:0	XS:i:0
