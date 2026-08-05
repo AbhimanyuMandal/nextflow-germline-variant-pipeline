@@ -1,20 +1,44 @@
-# Modular Germline Variant Calling Pipeline using Nextflow DSL2
+<p align="center">
+  <img src="assets/banner.png" width="100%">
+</p>
 
-![Nextflow](https://img.shields.io/badge/Nextflow-DSL2-brightgreen)
-![GATK](https://img.shields.io/badge/GATK-4.6-blue)
-![SAMtools](https://img.shields.io/badge/SAMtools-1.x-orange)
-![BWA](https://img.shields.io/badge/BWA-MEM-yellow)
-![VEP](https://img.shields.io/badge/VEP-Ensembl-red)
-![Platform](https://img.shields.io/badge/Platform-Linux-success)
-![License](https://img.shields.io/badge/License-MIT-lightgrey)
+# Nextflow DSL2 Germline Variant Calling Pipeline
+
+[![Nextflow](https://img.shields.io/badge/Nextflow-DSL2-23aa62?logo=nextflow)](https://www.nextflow.io/)
+[![GATK](https://img.shields.io/badge/GATK-4.6-blue)](https://gatk.broadinstitute.org/)
+[![SAMtools](https://img.shields.io/badge/SAMtools-1.22-orange)](http://www.htslib.org/)
+[![VEP](https://img.shields.io/badge/VEP-Ensembl-red)](https://www.ensembl.org/info/docs/tools/vep/)
+[![License](https://img.shields.io/github/license/AbhimanyuMandal/nextflow-germline-variant-pipeline)](LICENSE)
+
+A modular, reproducible Germline Variant Calling Pipeline built using **Nextflow DSL2** for processing next-generation sequencing (NGS) data.
+
+The workflow performs alignment, BAM processing, variant calling, variant filtration, and functional annotation using widely adopted bioinformatics tools.
 
 ---
 
-## Overview
+## Project Overview
 
-This repository contains a modular **Nextflow DSL2** pipeline implementing the **GATK Best Practices** workflow for germline variant discovery from next-generation sequencing (NGS) data.
+This pipeline follows GATK Best Practices for germline variant discovery and demonstrates how modular Nextflow DSL2 workflows can be used to build reproducible bioinformatics pipelines.
 
-The workflow performs read alignment, BAM processing, duplicate marking, germline variant calling, variant filtration, and functional annotation using the Ensembl Variant Effect Predictor (VEP). Each analysis step is implemented as an independent DSL2 module, making the pipeline reproducible, scalable, and easy to extend.
+It includes:
+
+- Sequence Alignment
+- BAM Sorting & Indexing
+- Read Group Addition
+- PCR Duplicate Marking
+- Germline Variant Calling
+- Variant Filtration
+- Functional Annotation
+
+---
+
+## Workflow Overview
+
+The pipeline implements a modular Nextflow DSL2 workflow for germline variant discovery following GATK Best Practices.
+
+<p align="center">
+  <img src="assets/workflow.png" width="100%">
+</p>
 
 ---
 
@@ -33,37 +57,27 @@ The workflow performs read alignment, BAM processing, duplicate marking, germlin
 
 ---
 
----
+## Pipeline Execution
 
-# Pipeline Workflow
+The workflow is executed using Nextflow DSL2. Each module runs independently, enabling scalable, reproducible, and resumable execution.
 
-```mermaid
-flowchart TD
-
-A[FASTQ] --> B[BWA-MEM Alignment]
-B --> C[SAMtools Sort]
-C --> D[SAMtools Index]
-
-D --> E[Add Read Groups]
-E --> F[SAMtools Index]
-
-F --> G[MarkDuplicates]
-G --> H[SAMtools Index]
-
-H --> I[HaplotypeCaller]
-
-I --> J[Index GVCF]
-
-J --> K[Variant Filtration]
-
-K --> L[VEP Annotation]
-
-L --> M[Annotated Variants]
-```
+<p align="center">
+  <img src="assets/pipeline_execution.png" width="900">
+</p>
 
 ---
 
-## Directory Structure
+## Output Directory
+
+The pipeline automatically organizes results into separate directories for alignment, quality control, variant calling, and annotation.
+
+<p align="center">
+  <img src="assets/output_directory.png" width="450">
+</p>
+
+---
+
+## Repository Structure
 
 ```text
 nextflow-germline-variant-pipeline/
@@ -71,7 +85,8 @@ nextflow-germline-variant-pipeline/
 ├── modules/
 │   ├── alignment/
 │   ├── gatk/
-│   └── qc/
+│   ├── qc/
+│   └── annotation/
 │
 ├── reference/
 │
@@ -87,46 +102,24 @@ nextflow-germline-variant-pipeline/
 
 ---
 
----
 
-# Pipeline Architecture
 
-```mermaid
-graph LR
+## Installation
 
-main.nf --> BWA
-main.nf --> Sort
-main.nf --> Index
-main.nf --> AddRG
-main.nf --> MarkDup
-main.nf --> HC
-main.nf --> IndexGVCF
-main.nf --> Filter
-main.nf --> VEP
-main.nf --> ReadCount
-
-BWA --> modules/alignment
-Sort --> modules/alignment
-Index --> modules/alignment
-
-AddRG --> modules/gatk
-MarkDup --> modules/gatk
-HC --> modules/gatk
-IndexGVCF --> modules/gatk
-Filter --> modules/gatk
-VEP --> modules/gatk
-
-ReadCount --> modules/qc
-```
-
-# Installation
-
-## Clone the repository
+### Clone the repository
 
 ```bash
 git clone https://github.com/AbhimanyuMandal/nextflow-germline-variant-pipeline.git
 
 cd nextflow-germline-variant-pipeline
+```
+
+### Create environment
+
+```bash
+conda env create -f environment.yml
+
+conda activate germline-pipeline
 ```
 
 ## Requirements
@@ -142,22 +135,22 @@ Ensure all tools are available in your system PATH before executing the workflow
 
 ---
 
-# Running the Pipeline
+## Running the Pipeline
 
-Execute the workflow using:
+### Execute the workflow using:
 
 ```bash
 nextflow run main.nf
 ```
 
-To resume an interrupted workflow:
+### To resume an interrupted workflow:
 
 ```bash
 nextflow run main.nf -resume
 ```
 ---
 
-# Input
+## Input
 
 The pipeline expects:
 
@@ -180,7 +173,7 @@ The reference genome must already be indexed before running the workflow.
 
 ---
 
-# Output
+## Output
 
 After successful execution, the following directory structure is generated.
 
@@ -188,6 +181,7 @@ After successful execution, the following directory structure is generated.
 results/
 
 ├── alignment/
+│   ├── sample.sam
 │   ├── sample.sorted.bam
 │   ├── sample.sorted.bam.bai
 │   ├── sample.rg.bam
@@ -207,24 +201,22 @@ results/
 
 ---
 
-# Pipeline Modules
+## Pipeline Modules
 
-| Module | Tool | Purpose |
-|---------|------|---------|
-| Alignment | BWA-MEM | Align sequencing reads |
-| Sorting | SAMtools | Coordinate-sort BAM |
-| BAM Indexing | SAMtools | Generate BAM index |
-| Read Groups | GATK | Add sequencing metadata |
-| Duplicate Marking | GATK | Remove PCR duplicates |
-| Variant Calling | GATK HaplotypeCaller | Call germline variants |
-| GVCF Indexing | GATK | Index compressed GVCF |
-| Variant Filtration | GATK | Apply quality filters |
-| Annotation | Ensembl VEP | Functional variant annotation |
-| QC | SAMtools | Read count statistics |
+| Module | Purpose |
+|---------|---------|
+| BWA-MEM | Align reads to reference genome |
+| SAMtools Sort | Coordinate sort BAM |
+| SAMtools Index | Generate BAM index |
+| AddReadGroups | Add sequencing metadata |
+| MarkDuplicates | Remove PCR duplicates |
+| HaplotypeCaller | Germline variant calling |
+| VariantFiltration | Filter low-quality variants |
+| VEP | Functional variant annotation |
 
 ---
 
-# Future Improvements
+## Future Improvements
 
 - Integrate FastQC and MultiQC
 - Base Quality Score Recalibration (BQSR)
@@ -244,7 +236,7 @@ This workflow is inspired by the GATK Best Practices pipeline developed by the B
 
 ---
 
-# License
+## License
 
 This project is distributed under the MIT License.
 
@@ -252,9 +244,18 @@ See the LICENSE file for details.
 
 ---
 
-# Contact
+## Contact
 
 **Abhimanyu Mandal**
 
-- GitHub: https://github.com/AbhimanyuMandal
 - LinkedIn: https://www.linkedin.com/in/abhimanyu-mandal/
+- Portfolio: https://abhimanyumandal.github.io/Personal-Portfolio/
+- Email: abhimanyumandal0810@gmail.com
+
+---
+
+<div align="center">
+
+### ⭐ If you found this repository useful, please consider giving it a Star!
+
+</div>
