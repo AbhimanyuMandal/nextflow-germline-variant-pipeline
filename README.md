@@ -5,9 +5,7 @@
 <h1 align="center">Nextflow DSL2 Germline Variant Calling Pipeline</h1>
 
 <p align="center">
-A modular, reproducible Germline Variant Calling Pipeline built using **Nextflow DSL2** for processing next-generation sequencing (NGS) data.
-
-The workflow performs alignment, BAM processing, variant calling, variant filtration, and functional annotation using widely adopted bioinformatics tools.
+A modular, reproducible Germline Variant Calling Pipeline built using Nextflow DSL2 for processing next-generation sequencing (NGS) data.
 </p>
 
 <p align="center">
