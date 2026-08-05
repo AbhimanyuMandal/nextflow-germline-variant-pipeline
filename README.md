@@ -2,18 +2,23 @@
   <img src="assets/banner.png" width="100%">
 </p>
 
-# Nextflow DSL2 Germline Variant Calling Pipeline
+<h1 align="center">Nextflow DSL2 Germline Variant Calling Pipeline</h1>
 
+<p align="center">
+A modular, reproducible Germline Variant Calling Pipeline built using **Nextflow DSL2** for processing next-generation sequencing (NGS) data.
+
+The workflow performs alignment, BAM processing, variant calling, variant filtration, and functional annotation using widely adopted bioinformatics tools.
+</p>
+
+<p align="center">
+  
 [![Nextflow](https://img.shields.io/badge/Nextflow-DSL2-23aa62?logo=nextflow)](https://www.nextflow.io/)
 [![GATK](https://img.shields.io/badge/GATK-4.6-blue)](https://gatk.broadinstitute.org/)
 [![SAMtools](https://img.shields.io/badge/SAMtools-1.22-orange)](http://www.htslib.org/)
 [![VEP](https://img.shields.io/badge/VEP-Ensembl-red)](https://www.ensembl.org/info/docs/tools/vep/)
 [![License](https://img.shields.io/github/license/AbhimanyuMandal/nextflow-germline-variant-pipeline)](LICENSE)
 
-A modular, reproducible Germline Variant Calling Pipeline built using **Nextflow DSL2** for processing next-generation sequencing (NGS) data.
-
-The workflow performs alignment, BAM processing, variant calling, variant filtration, and functional annotation using widely adopted bioinformatics tools.
-
+</p>
 ---
 
 ## Project Overview
