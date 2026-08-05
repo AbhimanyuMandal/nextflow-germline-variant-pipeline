@@ -87,6 +87,38 @@ nextflow-germline-variant-pipeline/
 
 ---
 
+---
+
+# Pipeline Architecture
+
+```mermaid
+graph LR
+
+main.nf --> BWA
+main.nf --> Sort
+main.nf --> Index
+main.nf --> AddRG
+main.nf --> MarkDup
+main.nf --> HC
+main.nf --> IndexGVCF
+main.nf --> Filter
+main.nf --> VEP
+main.nf --> ReadCount
+
+BWA --> modules/alignment
+Sort --> modules/alignment
+Index --> modules/alignment
+
+AddRG --> modules/gatk
+MarkDup --> modules/gatk
+HC --> modules/gatk
+IndexGVCF --> modules/gatk
+Filter --> modules/gatk
+VEP --> modules/gatk
+
+ReadCount --> modules/qc
+```
+
 # Installation
 
 ## Clone the repository
@@ -177,15 +209,52 @@ results/
 
 # Pipeline Modules
 
-| Module | Description |
-|---------|-------------|
-| **BWA-MEM** | Align sequencing reads to the reference genome |
-| **SAMtools Sort** | Sort aligned BAM files |
-| **SAMtools Index** | Generate BAM index files |
-| **Add Read Groups** | Add read group information required by GATK |
-| **MarkDuplicates** | Identify PCR duplicates |
-| **HaplotypeCaller** | Perform germline variant calling |
-| **Index GVCF** | Generate index for compressed GVCF files |
-| **VariantFiltration** | Filter low-quality variants |
-| **VEP** | Annotate variants with functional information |
-| **ReadCount** | Generate read count statistics |
+| Module | Tool | Purpose |
+|---------|------|---------|
+| Alignment | BWA-MEM | Align sequencing reads |
+| Sorting | SAMtools | Coordinate-sort BAM |
+| BAM Indexing | SAMtools | Generate BAM index |
+| Read Groups | GATK | Add sequencing metadata |
+| Duplicate Marking | GATK | Remove PCR duplicates |
+| Variant Calling | GATK HaplotypeCaller | Call germline variants |
+| GVCF Indexing | GATK | Index compressed GVCF |
+| Variant Filtration | GATK | Apply quality filters |
+| Annotation | Ensembl VEP | Functional variant annotation |
+| QC | SAMtools | Read count statistics |
+
+---
+
+# Future Improvements
+
+- Integrate FastQC and MultiQC
+- Base Quality Score Recalibration (BQSR)
+- Joint Genotyping workflow
+- Container support using Docker and Singularity
+- Cloud execution on AWS and Google Cloud
+- Support for multiple samples
+- Workflow testing using GitHub Actions
+- Parameter validation
+- nf-core compatible configuration
+
+---
+
+# Acknowledgements
+
+This workflow is inspired by the GATK Best Practices pipeline developed by the Broad Institute and implemented using Nextflow DSL2 modular design principles.
+
+---
+
+# License
+
+This project is distributed under the MIT License.
+
+See the LICENSE file for details.
+
+---
+
+# Contact
+
+**Abhimanyu Mandal**
+
+- GitHub: https://github.com/AbhimanyuMandal
+- LinkedIn: https://www.linkedin.com/in/abhimanyu-mandal/
