@@ -9,14 +9,14 @@ A modular, reproducible Germline Variant Calling Pipeline built using Nextflow D
 </p>
 
 <p align="center">
-  
-[![Nextflow](https://img.shields.io/badge/Nextflow-DSL2-23aa62?logo=nextflow)](https://www.nextflow.io/)
-[![GATK](https://img.shields.io/badge/GATK-4.6-blue)](https://gatk.broadinstitute.org/)
-[![SAMtools](https://img.shields.io/badge/SAMtools-1.22-orange)](http://www.htslib.org/)
-[![VEP](https://img.shields.io/badge/VEP-Ensembl-red)](https://www.ensembl.org/info/docs/tools/vep/)
-[![License](https://img.shields.io/github/license/AbhimanyuMandal/nextflow-germline-variant-pipeline)](LICENSE)
 
+<img src="https://img.shields.io/badge/Nextflow-DSL2-23aa62?logo=nextflow"/>
+<img src="[https://img.shields.io/badge/GATK-4.6-blue"/>
+<img src="https://img.shields.io/badge/SAMtools-1.22-orange"/>
+<img src="https://img.shields.io/badge/VEP-Ensembl-red"/>
+<img src="https://img.shields.io/github/license/AbhimanyuMandal/nextflow-germline-variant-pipeline"/>
 </p>
+
 ---
 
 ## Project Overview
