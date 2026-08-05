@@ -33,43 +33,32 @@ The workflow performs read alignment, BAM processing, duplicate marking, germlin
 
 ---
 
+---
+
 # Pipeline Workflow
 
-```text
-FASTQ
-   │
-   ▼
-BWA-MEM
-   │
-   ▼
-SAMtools Sort
-   │
-   ▼
-SAMtools Index
-   │
-   ▼
-Add Read Groups
-   │
-   ▼
-SAMtools Index
-   │
-   ▼
-MarkDuplicates
-   │
-   ▼
-SAMtools Index
-   │
-   ▼
-HaplotypeCaller
-   │
-   ▼
-Index GVCF
-   │
-   ▼
-Variant Filtration
-   │
-   ▼
-VEP Annotation
+```mermaid
+flowchart TD
+
+A[FASTQ] --> B[BWA-MEM Alignment]
+B --> C[SAMtools Sort]
+C --> D[SAMtools Index]
+
+D --> E[Add Read Groups]
+E --> F[SAMtools Index]
+
+F --> G[MarkDuplicates]
+G --> H[SAMtools Index]
+
+H --> I[HaplotypeCaller]
+
+I --> J[Index GVCF]
+
+J --> K[Variant Filtration]
+
+K --> L[VEP Annotation]
+
+L --> M[Annotated Variants]
 ```
 
 ---
@@ -95,3 +84,108 @@ nextflow-germline-variant-pipeline/
 ├── README.md
 └── LICENSE
 ```
+
+---
+
+# Installation
+
+## Clone the repository
+
+```bash
+git clone https://github.com/AbhimanyuMandal/nextflow-germline-variant-pipeline.git
+
+cd nextflow-germline-variant-pipeline
+```
+
+## Requirements
+
+- Nextflow ≥ 24.x
+- Java 17+
+- BWA
+- SAMtools
+- GATK 4
+- Ensembl VEP
+
+Ensure all tools are available in your system PATH before executing the workflow.
+
+---
+
+# Running the Pipeline
+
+Execute the workflow using:
+
+```bash
+nextflow run main.nf
+```
+
+To resume an interrupted workflow:
+
+```bash
+nextflow run main.nf -resume
+```
+---
+
+# Input
+
+The pipeline expects:
+
+```
+test_data/
+├── sample.fastq
+```
+
+Reference genome files should be placed inside:
+
+```
+reference/
+├── toy_reference.fa
+├── toy_reference.fa.fai
+├── toy_reference.dict
+├── ...
+```
+
+The reference genome must already be indexed before running the workflow.
+
+---
+
+# Output
+
+After successful execution, the following directory structure is generated.
+
+```text
+results/
+
+├── alignment/
+│   ├── sample.sorted.bam
+│   ├── sample.sorted.bam.bai
+│   ├── sample.rg.bam
+│   ├── sample.rg.bam.bai
+│   ├── sample.dedup.bam
+│   └── sample.dedup.bam.bai
+│
+├── variants/
+│   ├── sample.g.vcf.gz
+│   ├── sample.g.vcf.gz.tbi
+│   ├── sample.filtered.vcf.gz
+│   └── sample.annotated.vcf
+│
+└── readcount/
+    └── sample.readcount.txt
+```
+
+---
+
+# Pipeline Modules
+
+| Module | Description |
+|---------|-------------|
+| **BWA-MEM** | Align sequencing reads to the reference genome |
+| **SAMtools Sort** | Sort aligned BAM files |
+| **SAMtools Index** | Generate BAM index files |
+| **Add Read Groups** | Add read group information required by GATK |
+| **MarkDuplicates** | Identify PCR duplicates |
+| **HaplotypeCaller** | Perform germline variant calling |
+| **Index GVCF** | Generate index for compressed GVCF files |
+| **VariantFiltration** | Filter low-quality variants |
+| **VEP** | Annotate variants with functional information |
+| **ReadCount** | Generate read count statistics |
